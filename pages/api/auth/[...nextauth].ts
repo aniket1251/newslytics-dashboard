@@ -10,7 +10,9 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session }) {
-      session.user.isAdmin = session.user?.email === 'admin@example.com';
+      if (session.user?.email) {
+        (session.user as any).isAdmin = session.user.email === 'admin@example.com';
+      }
       return session;
     },
   },
